@@ -65,7 +65,7 @@ char	**ft_first_malloc(char **tab, char *str, char *sep)
 	x = 0;
 	while (str[i])
 	{
-		if (ft_is_sep(str[i], sep))
+		if (ft_is_sep(str[i], sep) && !(ft_is_sep(str[i - 1], sep)))
 		{
 			x++;
 		}
@@ -73,6 +73,7 @@ char	**ft_first_malloc(char **tab, char *str, char *sep)
 	}
 	if (!(ft_is_sep(str[i - 1], sep)))
 		x++;
+        printf("nbl = %d\n", x);
 	if (!(tab = malloc(sizeof(char*) * (x + 3))))
 		return (NULL);
 	return (tab);
@@ -92,28 +93,37 @@ char	**ft_split(char *str, char *charset)
 		return (NULL);
 	x = 0;
 	y = -1;
-	i = -1;
+	i = 0;
+    while (ft_is_sep(str[i], charset))
+        i++;
+    printf("i = %d\n", i);
+    i--;
 	while (str[++i])
-	{
-		if (!(ft_is_sep(str[i], charset)))
-			tab[x][++y] = str[i];
-		else
-		{
-			x++;
-			y = -1;
-		}
+	{   
+		if (ft_is_sep(str[i], charset) && !(ft_is_sep(str[i - 1], charset)))
+			{   
+                x++;
+                y = -1;
+            }
+		if(!(ft_is_sep(str[i], charset)))
+            //printf("x = %d\n", x);
+            tab[x][++y] = str[i];
 	}
-	tab[x + 1] = NULL;
+    if (y == -1)
+        tab[x] = NULL;
+    if (y >= 0)
+	    tab[x + 1] = NULL;
 	printf("%s\n", tab[0]);
 	printf("%s\n", tab[1]);
 	printf("%s\n", tab[2]);
 	printf("%s\n", tab[3]);
+    printf("%s\n", tab[4]);
 	return (tab);
 }
 
 int main()
 {	
-	char s[] = "blablablabl";
+	char s[] = "balablablablaa";
 	char sep[] = "ab";
-	ft_split(s, sep);
+	ft_split("    |  | ", " |");
 }
