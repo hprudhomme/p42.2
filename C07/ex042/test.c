@@ -31,7 +31,7 @@ char	*ft_res_final(char *base_to, int dec, char *res_final, int res_len)
     while (res_len != 0)
     {   
         res_final[res_len] = base_to[nbr % ft_str_len(base_to)];
-        printf("zzz %c\n", base_to[nbr % ft_str_len(base_to)]);
+        //printf("zzz %c\n", base_to[nbr % ft_str_len(base_to)]);
         nbr = nbr / ft_str_len(base_to);
         res_len--;
     }
@@ -42,7 +42,7 @@ char	*ft_res_final(char *base_to, int dec, char *res_final, int res_len)
 int main()
 {
     char base[] = "0123456789abcdef";
-    int x = 123;
+    int x = 123456;
     char res_final[res_len(base, x)];
     int res_length;
     res_length = res_len(base, x);
